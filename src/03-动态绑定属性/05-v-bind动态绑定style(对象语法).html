@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--<h2 :style="{css属性名: css属性值}">{{message}}</h2>-->
+  <!--red必须要加单引号,否则会当成变量去解析-->
+  <!--<h2 :style="{color: 'red'}">{{message}}</h2>-->
+  <h2 :style="{color: color, fontSize: fontSize}">{{message}}</h2>
+  <!--内部可以写简单的表达式-->
+  <h2 :style="{color: color, fontSize: newFontSize + 'px'}">{{message}}</h2>
+  <!--可以提取成一个method-->
+  <h2 :style="getStyles()">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好',
+      color: 'red',
+      fontSize: '100px',
+      newFontSize: 70
+    },
+    methods: {
+      getStyles: function () {
+        return {color: this.color, fontSize: this.newFontSize + 'px'};
+      }
+    }
+  });
+</script>
+</body>
+</html>

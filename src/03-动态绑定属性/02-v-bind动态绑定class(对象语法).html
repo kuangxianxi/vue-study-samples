@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  .active {
+    color: red;
+  }
+</style>
+<body>
+<div id="app">
+  <!--<h2 v-bind:class="{key1: value1, key2: value2}"></h2>-->
+  <!--当boolean为true时，class就有这个类名的值，如果为false就没有-->
+  <!--<h2 v-bind:class="{类名: boolean, 类名: boolean}"></h2>-->
+  <h2 v-bind:class="{active: isActive}">{{message}}</h2>
+  <!--还可以把对象设置为一个method或者computed-->
+  <h2 v-bind:class="getClasses()">{{message}}</h2>
+  <button v-on:click="changeColor">按钮</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好',
+      isActive: true
+    },
+    methods: {
+      changeColor: function () {
+        this.isActive = !this.isActive;
+      },
+      getClasses: function () {
+        return {active: this.isActive};
+      }
+    }
+  });
+</script>
+</body>
+</html>
