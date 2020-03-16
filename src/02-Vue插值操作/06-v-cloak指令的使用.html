@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  [v-cloak] {
+    display: none;
+  }
+</style>
+<body>
+<div id="app">
+  <h2>{{message}}</h2>
+  <!--v-cloak在vue解析之前,会保留在h2标签的属性中-->
+  <!--v-cloak在vue解析之后,h2属性中就不会有这一条-->
+  <!--根据v-cloak属性的是否存在,设置css,可以防止网络延迟等原因直接显示{{message}}情况的出现-->
+  <h2 v-cloak>{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  setTimeout(function () {
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好'
+      }
+    });
+  }, 2000)
+</script>
+</body>
+</html>
