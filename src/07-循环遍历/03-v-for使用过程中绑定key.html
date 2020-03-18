@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <!--在使用v-for时,最好绑定一个唯一的key属性
+    这样当在渲染后,往数组中插入值时,会适当的提高再渲染的性能-->
+    <li v-for="letter in letters" :key="letter">{{letter}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D']
+    },
+  });
+</script>
+</body>
+</html>

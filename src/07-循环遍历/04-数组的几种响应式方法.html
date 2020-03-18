@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="letter in letters" :key="letter">{{letter}}</li>
+  </ul>
+
+  <button @click="push">push</button>
+  <button @click="pop">pop</button>
+  <button @click="shift">shift</button>
+  <button @click="unshift">unshift</button>
+  <button @click="splice">splice</button>
+  <button @click="sort">sort</button>
+  <button @click="reverse">reverse</button>
+  <button @click="index">index</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E']
+    },
+    methods: {
+      push() {
+        //push方法:在数组的最后面添加元素
+        this.letters.push('F');
+      },
+      pop() {
+        //pop方法:删除数组的最后一个元素
+        this.letters.pop();
+      },
+      shift() {
+        //shift方法:删除数组的第一个元素
+        this.letters.shift();
+      },
+      unshift() {
+        //unshift方法:在数组的前面添加元素
+        this.letters.unshift('F', 'G');
+      },
+      splice() {
+        //splice方法:可以删除元素/插入元素/修改元素
+        //删除元素
+        // this.letters.splice(0, 1);
+        //修改元素
+        // this.letters.splice(0, 1, 'AAA');
+        //插入元素
+        this.letters.splice(2, 0, 'F');
+      },
+      sort() {
+        //sort方法:给数组的元素排序
+        this.letters.sort();
+      },
+      reverse() {
+        //reverse方法:反转数组
+        this.letters.reverse();
+      },
+
+      index() {
+        //注意:根据下标更改元素,不是响应式的
+        // this.letters[0] = 'F';
+        //可以使用数组的splice方法,或者Vue的set方法更新元素,这两个方法是响应式的
+        //Vue.set(修改的对象, 要修改的索引值, 要修改的值)
+        Vue.set(this.letters, 0, 'F');
+      }
+
+    }
+  });
+</script>
+</body>
+</html>

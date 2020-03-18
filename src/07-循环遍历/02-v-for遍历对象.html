@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--遍历的时候只取一个值时,这个值是value-->
+  <ul>
+    <li v-for="aInfo in info">{{aInfo}}</li>
+  </ul>
+
+  <!--既想获取key又想获取value,则只需要在遍历的时候取两个值: (value,key)-->
+  <ul>
+    <li v-for="(value, key) in info">{{value}} - {{key}}</li>
+  </ul>
+
+  <!--key,value,index都想获取,则: (value,key,index)-->
+  <ul>
+    <li v-for="(value, key, index) in info">{{index}}.{{key}}-{{value}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+        name: '张三',
+        age: 18,
+        height: 160
+      }
+    },
+  });
+</script>
+</body>
+</html>

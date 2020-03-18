@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="name in names">{{name}}</li>
+  </ul>
+
+  <!--获取索引下标-->
+  <ul>
+    <li v-for="(name, index) in names">{{index + 1}}.{{name}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      names: ['张三', '李四', '王五']
+    },
+  });
+</script>
+</body>
+</html>
