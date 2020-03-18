@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--当用户在input中输入值的时候,点击了切换,切换后的input不会清除用户输入的值,
+  是由于vue在底层会复用input.如果想清除的话,可以在input上添加不同的key值-->
+  <span v-if="isUser">
+    <label for="userName">用户账号</label>
+    <input type="text" id="userName" placeholder="用户账号" key="userName">
+  </span>
+  <span v-else>
+    <label for="userEmail">用户邮箱</label>
+    <input type="text" id="userEmail" placeholder="用户邮箱" key="userEmail">
+  </span>
+  <button @click="change">切换类型</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      isUser: true
+    },
+    methods: {
+      change() {
+        this.isUser = !this.isUser;
+      }
+    }
+  });
+</script>
+</body>
+</html>
