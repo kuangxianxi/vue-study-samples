@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--.stop修饰符-->
+  <!--没有修饰符的情况下,点击按钮1会同时触发 按钮1和div的点击事件
+  当只想触发按钮1的点击事件时就可以使用.stop修饰符-->
+  <div @click="divClick">
+    只是一个div
+    <button @click.stop="but1Click">按钮1</button>
+  </div>
+
+  <br>
+  <!--.prevent修饰符-->
+  <!--当点击提交按钮不希望其跳转页面,而只执行监听点击事件的函数时,就可以使用.prevent修饰符,
+  它可以阻止默认事件-->
+  <form action="url">
+    <input type="submit" value="提交" @click.prevent="submitClick">
+  </form>
+
+  <br>
+  <!--.{keyCode | keyAlias}修饰符-->
+  <!--可以监听指定键帽的事件-->
+  <input type="text" @keyup.a="inputKeyUp">
+
+  <br>
+  <!--.once修饰符-->
+  <!--once修饰符可以让监听的事件只执行一次-->
+  <button @click.once="but2Click">按钮2</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      but1Click() {
+        console.log('but1Click');
+      },
+      divClick() {
+        console.log('divClick');
+      },
+      submitClick() {
+        console.log('submitClick');
+      },
+      inputKeyUp() {
+        console.log('inputKeyUp');
+      },
+      but2Click() {
+        console.log('but2Click');
+      }
+    }
+  });
+</script>
+</body>
+</html>

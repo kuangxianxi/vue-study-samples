@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--情况1:当函数没有参数时,调用时可以加小括号也可以不加小括号-->
+  <button @click="but1Click">按钮1</button>
+  <button @click="but1Click()">按钮1</button>
+  <!--情况2:当函数有参数时-->
+  <!--调用时传参数-->
+  <button @click="but2Click('按钮2')">按钮2</button>
+  <!--调用时没有传参数,函数的形参则为undefined-->
+  <button @click="but2Click()">按钮2</button>
+  <!--调用时没有加小括号,则会把事件对象当作参数传递-->
+  <button @click="but2Click">按钮2</button>
+  <!--情况3:当函数有多个参数,既想使用事件对象,又想使用普通的参数时,可以使用$event拿到事件对象-->
+  <button @click="but3Click('按钮3', $event)">按钮3</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      but1Click() {
+        console.log('but1Click');
+      },
+      but2Click(data) {
+        console.log(data);
+      },
+      but3Click(data, event) {
+        console.log(data, event);
+      }
+    }
+  });
+</script>
+</body>
+</html>
