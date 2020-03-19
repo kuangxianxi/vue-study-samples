@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--选择一个,绑定的是[string]-->
+  <select name="fruit" v-model="fruit">
+    <option value="apple">苹果</option>
+    <option value="banana">香蕉</option>
+    <option value="strawberry">草莓</option>
+  </select>
+  <h2>你选择的是: {{fruit}}</h2>
+
+  <!--选择多个,绑定的是[数组]-->
+  <select name="fruit" v-model="fruits" multiple>
+    <option value="apple">苹果</option>
+    <option value="banana">香蕉</option>
+    <option value="strawberry">草莓</option>
+  </select>
+  <h2>你选择的是: {{fruits}}</h2>
+
+  <!--v-model可以使用v-bind动态绑定元素的value值,也可以称为值绑定-->
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      fruit: 'banana',
+      fruits: ['strawberry']
+    },
+  });
+</script>
+</body>
+</html>
