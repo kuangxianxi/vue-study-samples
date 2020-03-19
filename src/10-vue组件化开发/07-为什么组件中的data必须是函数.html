@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn></cpn>
+  <cpn></cpn>
+  <cpn></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>当前计数: {{counter}}</h2>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  const obj = {
+    counter: 0
+  };
+  Vue.component('cpn', {
+    template: '#cpn',
+    //为什么data必须是函数
+    //因为函数返回的对象都是新对象,当组件被复用时,操作修改组件中的数据时不会影响到其他组件
+    //如果不是函数,则返回的都是同一个对象,组件复用时,操作修改数据会对所有组件产生影响
+    data() {
+      //模拟data不是函数的情况
+      // return obj;
+
+      return {
+        counter: 0
+      }
+    },
+    //同样的组件只能使用自身定义的方法
+    methods: {
+      increment() {
+        this.counter++;
+      },
+      decrement() {
+        this.counter--;
+      }
+    }
+  });
+
+  const app = new Vue({
+    el: '#app',
+    data: {},
+  });
+</script>
+</body>
+</html>
