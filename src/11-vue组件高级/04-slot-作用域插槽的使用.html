@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--作用域插槽就是自己定义插槽的标签,但是标签的内容依旧是由子组件提供-->
+  <cpn></cpn>
+  <!--当第二个组件想使用另一种方式展示数据时,就会用到作用域插槽-->
+  <cpn>
+    <!--2.绑定slot对象并取名,默认绑定name为default的slot-->
+    <!--<template v-slot:my-slot="slot">-->
+    <template #my-slot="slot">
+      <!--3.改变展示方式-->
+      <span>{{slot.data.join('  ->  ')}}</span>
+    </template>
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <!--1.首先在模板中绑定数据-->
+    <!--slot的name默认为default-->
+    <slot :data="programLanguages" name="my-slot">
+      <ul>
+        <li v-for="programLanguage in programLanguages">{{programLanguage}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {},
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            programLanguages: ['C', 'C++', 'Java', 'Kotlin', "C#"]
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
