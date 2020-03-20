@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn :cmovies="movies"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <ul>
+      <li v-for="movie in cmovies">{{movie}}</li>
+    </ul>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  //使用Vue实例充当父组件,自定义组件充当子组件
+  const cpn = {
+    template: '#cpn',
+    //1.数组形式
+    // props: ['cmovies']
+
+    //2.对象形式,类型限制
+    // props: {
+    //   cmovies: Array
+    // }
+
+    //3.指定默认值及是否为必填
+    props: {
+      cmovies: {
+        type: Array,
+        //当类型为数组或者对象时,默认值必须是一个函数返回值
+        default() {
+          return []
+        },
+        required: true
+      }
+    }
+  };
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      movies: ['海贼王', '火影忍者', '一拳超人']
+    },
+    components: {
+      cpn
+    }
+  });
+</script>
+</body>
+</html>

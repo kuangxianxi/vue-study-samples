@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn :number1="num1"
+       :number2="num2"
+       @number1Change="number1change"
+       @number2change="number2change">
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>props: {{number1}}</h2>
+    <h2>data: {{dnumber1}}</h2>
+    <label for="num1">
+      <!--vue不建议直接修改props,而是绑定到一个data或者computed-->
+      <input type="text" id="num1" v-model="dnumber1" @input="dnumber1Change">
+    </label>
+    <h2>props: {{number2}}</h2>
+    <h2>data: {{dnumber2}}</h2>
+    <label for="num2">
+      <input type="text" id="num2" :value="dnumber2" @input="dnumber2Change">
+    </label>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    props: {
+      number1: Number,
+      number2: Number
+    },
+    data() {
+      return {
+        dnumber1: this.number1,
+        dnumber2: this.number2
+      }
+    },
+    methods: {
+      dnumber1Change(event) {
+        //改变dnumber1的值
+        this.dnumber1 = event.target.value;
+        //通过改变父组件绑定的值,而修改props
+        this.$emit('number1change', this.dnumber1);
+        //改变dnumber2的值
+        this.dnumber2 = this.dnumber1 * 100;
+        this.$emit('number2change', this.dnumber2);
+      },
+      dnumber2Change(event) {
+        this.dnumber2 = event.target.value;
+        this.$emit('number2change', this.dnumber2);
+
+        //改变dnumber2的值
+        this.dnumber1 = this.dnumber2 / 100;
+        this.$emit('number1change', this.dnumber1);
+      }
+    }
+  };
+  const app = new Vue({
+    el: '#app',
+    data: {
+      num1: 0,
+      num2: 1
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      number1change(value) {
+        this.num1 = parseFloat(value);
+      },
+      number2change(value) {
+        this.num2 = parseFloat(value);
+      }
+    }
+  });
+</script>
+</body>
+</html>

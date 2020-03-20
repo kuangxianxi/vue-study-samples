@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--自定义事件会默认传递参数,此处不用显示传递参数-->
+  <cpn @emit-click="cpnClick"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <button v-for="category in categories" @click="btnClick(category)">{{category.name}}</button>
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        categories: [
+          {id: '1', name: '热门推荐'},
+          {id: '2', name: '家用家电'},
+          {id: '3', name: '手机数码'},
+          {id: '4', name: '电脑办公'},
+        ]
+      }
+    },
+    methods: {
+      btnClick(category) {
+        //子传父:通过使用$emit发送自定义事件来发送数据
+        // console.log(category);
+        // 第一个参数是事件名,第二个参数是要传递的参数
+        this.$emit('emit-click', category);
+      }
+    }
+  };
+  const app = new Vue({
+    el: '#app',
+    data: {},
+    components: {
+      cpn
+    },
+    methods: {
+      cpnClick(category) {
+        console.log(category);
+      }
+    }
+  });
+</script>
+</body>
+</html>
