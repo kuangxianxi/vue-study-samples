@@ -1,4 +1,6 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 
 module.exports = {
   //定义入口
@@ -36,7 +38,7 @@ module.exports = {
               //[name]: 原文件名
               //[hash:8]: 保留8位hash值
               //[ext]: 原扩展名
-              name: '[name].[hash:8].[ext]'
+              name: 'img/[name].[hash:8].[ext]'
             }
           }
         ]
@@ -51,8 +53,23 @@ module.exports = {
             presets: ['es2015']
           }
         }
+      },
+        //vue loader,要配合VueLoaderPlugin一起使用
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
     ]
 
-  }
+  },
+  //配置vue使用runtime-compiler,使其可以解析template
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  },
+  plugins: [
+    // make sure to include the plugin!
+    new VueLoaderPlugin()
+  ]
 };
