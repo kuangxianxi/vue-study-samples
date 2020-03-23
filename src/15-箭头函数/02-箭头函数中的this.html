@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const aaa = function () {
+    //这种形式的函数,this是window
+    console.log(this)
+  }
+
+  // const bbb = () => {
+  //   //箭头函数的this,会从当前作用域往外层找this,并返回最近一层的this,此刻this为window
+  //   console.log(this)
+  // }
+
+  const obj = {
+    bbb() {
+      console.log(this);
+      setTimeout(() => {
+        //此处this为obj
+        console.log(this);
+      })
+    }
+  }
+
+  aaa();
+  obj.bbb();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //1.定义函数的方式一:
+  function aaa() {
+
+  }
+
+  //2.定义函数的方式二:
+  const bbb = function () {
+
+  }
+
+  //3.定义函数的方式三:
+  const obj = {
+    ccc: function () {
+
+    },
+    ddd() {
+
+    }
+  }
+
+  //4.定义函数的方式四:使用箭头函数定义函数
+  //4.1 无参数无返回值
+  const eee = () => {
+
+  }
+  //4.2 有多个参数,且有返回值
+  const fff = (num1, num2) => {
+    return num1 + num2;
+  }
+  //4.3 有一个参数,可以省略括号
+  const ggg = num => {
+
+  }
+  //4.4 当函数体只有一行代码时,可以省略大括号{}
+  const hhh = num => console.log(num);
+
+</script>
+</body>
+</html>
