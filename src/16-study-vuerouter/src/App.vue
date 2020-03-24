@@ -24,10 +24,25 @@
 
     <router-link to="/home">首页</router-link>
     <router-link to="/about">关于</router-link>
-    <!--动态路由-->
-    <router-link :to="'/user/' + userId">用户</router-link>
+    <!--1.使用动态路由传递参数-->
+    <!--<router-link :to="'/user/' + userId">用户</router-link>-->
+    <!--使用button-->
+    <button @click="userClick">用户</button>
+    <!--2.使用query传递参数-->
+    <!--<router-link :to="{path: '/profile', query: {
+      name: '小明',
+      age: 18,
+      height: 1.88
+    }}">档案</router-link>-->
+    <!--使用button-->
+    <button @click="profileClick">档案</button>
 
-    <router-view/>
+    <!--使用keep-alive可以使所有放在router-view的组件不会频繁创建和销毁,提高性能-->
+    <!--使用exclude属性可以排除掉不想缓存的组件,属性值是组件的name,多个组件以,隔开不能有空格-->
+    <!--使用include属性包含排除掉想缓存的组件-->
+    <keep-alive exclude="Profile">
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 
@@ -48,6 +63,19 @@
       aboutBtn() {
         this.$router.push('/about');
         // this.$router.replace('/about');
+      },
+      userClick() {
+        this.$router.push('/user/' + this.userId);
+      },
+      profileClick() {
+        this.$router.push({
+          path: '/profile',
+          query: {
+            name: '小红',
+            age: 17,
+            height: 1.77
+          }
+        });
       }
     }
   }
