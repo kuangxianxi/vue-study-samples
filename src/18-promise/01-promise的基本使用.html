@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //使用setTimeout来模拟异步操作
+  //未使用promise的异步操作
+  setTimeout(() => {
+    console.log('setTimeout1');
+    //在调用其他方法处理结果
+    setTimeout(() => {
+      console.log('setTimeout2');
+      setTimeout(() => {
+        console.log('setTimeout3');
+        setTimeout(() => {
+          console.log('setTimeout4')
+        }, 1000)
+      }, 1000)
+    }, 1000)
+  }, 1000)
+
+  //使用promise优雅处理
+  //使用构造函数创建对象,构造函数的参数是一个函数,函数有两个参数(resolve, reject),它们也是一个函数
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      //调用resolve会立即执行then后面的代码
+      resolve();
+    }, 1000)
+  }).then(() => {
+    //处理调用结果
+    console.log('setTimeout1');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        //调用resolve会立即执行then后面的代码
+        resolve();
+      }, 1000)
+    }).then(() => {
+      console.log('setTimeout2');
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          //调用resolve会立即执行then后面的代码
+          resolve();
+        }, 1000)
+      }).then(() => {
+        console.log('setTimeout3');
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            //调用resolve会立即执行then后面的代码
+            resolve();
+          }, 1000)
+        })
+      })
+    })
+  })
+
+
+  new Promise(((resolve, reject) => {
+    resolve();//调用成功会立即调用then后面的代码
+    reject();//调用失败会立即调用catch后面的代码
+  })).then(()=>{
+    //...
+  })
+  .catch(()=>{
+    //...
+  })
+</script>
+</body>
+</html>

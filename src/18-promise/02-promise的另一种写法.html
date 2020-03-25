@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  new Promise((resolve, reject) => {
+    resolve();//如果成功调用resolve就会执行then后面的第一个函数
+    reject();//如果失败调用reject就会执行then后面的第二个函数
+  }).then(() => {
+
+  }, () => {
+
+  })
+</script>
+</body>
+</html>
