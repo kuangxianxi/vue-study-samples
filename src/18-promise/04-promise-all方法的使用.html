@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  //如果有一个需求需要多个请求的结果才能继续执行,这意味着必须得拿到所有相关请求的结果,这就可以使用all方法
+  //all方法内部是一个数组,数组的元素是Promise对象
+  Promise.all([
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('执行第一个方法');
+          resolve('result1')
+        }, 1000)
+      }),
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('执行第二个方法');
+        resolve('result2')
+      }, 2000)
+    })
+      //results是包装方法的结果
+  ]).then(results => {
+      console.log(results)
+  })
+</script>
+</body>
+</html>
