@@ -4,6 +4,22 @@ import {TEST} from './mutation-types'
 
 Vue.use(Vuex)
 
+const moduleA = {
+  state: {
+
+  },
+  mutations: {
+
+  },
+  getters: {
+    //module中的getters除了state和getters两个参数以外,还有一个rootState,可以获取到根store中的state
+    test(state, getters, rootState) {
+
+    }
+  },
+  //...
+};
+
 export default new Vuex.Store({
   state: {
     //state: 用来保存状态信息
@@ -53,11 +69,50 @@ export default new Vuex.Store({
     //四、mutations的常量类型：目前定义方和使用方都是手写或者复制的方式控制方法名,容易出错或者不容易维护,可以提取一个常量供双方使用
     [TEST]() {
       console.log('测试');
+    },
+    updateStudents(state) {
+      //五、vuex建议mutations内部保持同步操作,如果是异步操作就会出现devtools监控出现异常,所以异步操作都使用actions
+      state.students[0].name = '小刘';
+      //以下是错误的操作
+      // setTimeout(() => {
+      //   state.students[0].name = '小刘';
+      // }, 1000)
     }
   },
   actions: {
+    //一、Vuex建议所有异步操作定义位置,每个方法包含一个参数context,相当于Vuex.Store对象
+    // aUpdateStudents(context) {
+    //   setTimeout(() => {
+    //     //同步操作调用mutations更新state,
+    //     context.commit('updateStudents')
+    //   }, 1000)
+    // }
+    //二、同样可以传递参数
+    // aUpdateStudents(context, payload) {
+    //   setTimeout(() => {
+    //     //同步操作调用mutations更新state,
+    //     context.commit('updateStudents');
+    //     console.log(payload);
+    //   }, 1000)
+    // }
+    //三、想在异步操作执行成功后进行一些操作,可以使用Promise
+    aUpdateStudents(context, payload) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          //同步操作调用mutations更新state,
+          context.commit('updateStudents');
+          console.log(payload);
+          resolve('操作完成');
+        }, 1000)
+      })
+    }
+
   },
   modules: {
+    //Vuex推荐单一状态树,但是当数据量大时,可能不容易维护,
+    //所以提出了modules概念,可以创建module,每个module都包括state、getters、mutations等
+    //moduleA 调用mutations和actions与之前一样,都是使用commit和dispatch
+    moduleA
   },
   getters: {
     //getters:的使用场景类似于Vue中的computed

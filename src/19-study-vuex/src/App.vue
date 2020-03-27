@@ -2,7 +2,9 @@
   <div id="app">
     <h2>-------我是app-------</h2>
     <h2>{{$store.state.info}}</h2>
-    <button @click="updateInfo">修改信息</button>
+    <button @click="updateInfo">修改info信息</button>
+    <button @click="updateStudents">修改students信息</button>
+
     <button @click="test">测试常量名</button>
     <h2>{{$store.state.counter}}</h2>
     <button @click="increment">+</button>
@@ -46,6 +48,19 @@
       },
       test() {
         this.$store.commit(TEST);
+      },
+      updateStudents() {
+        // this.$store.commit('updateStudents')
+
+        //通过dispatch调用actions异步操作
+        // this.$store.dispatch('aUpdateStudents', '参数')
+
+        //想在异步操作执行成功后进行一些操作
+        this.$store
+            .dispatch('aUpdateStudents', '参数')
+            .then((res) => {
+              console.log(res);
+            })
       }
     }
   }
